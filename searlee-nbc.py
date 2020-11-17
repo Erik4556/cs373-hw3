@@ -11,15 +11,15 @@ def nbc(train_data):
     zero_data = train_data[train_data['survived'] == 0]
     one_data = train_data[train_data['survived'] == 1]
 
-    print(train_data.head())
+#     print(train_data.head())
     # Prior Prob Calc
     zeroProb = len(zero_data)/len(train_data)
     oneProb = len(one_data)/len(train_data)
     priorProbs = [zeroProb, oneProb]
-    print(len(zero_data),len(one_data),len(train_data))
-    print(len(zero_data)/len(train_data))
-    print(len(one_data)/len(train_data))
-    print("Prior Probabilities: ",zeroProb, oneProb)
+#     print(len(zero_data),len(one_data),len(train_data))
+#     print(len(zero_data)/len(train_data))
+#     print(len(one_data)/len(train_data))
+#     print("Prior Probabilities: ",zeroProb, oneProb)
 
     
     # Conditional Prob Calc
@@ -192,8 +192,8 @@ outcome = sum(1 for i in actual+predictons if eval_cond(i))
 
 
 # print(test_data.head())
-print("actual: ", actual[0:10])
-print("predictons: ", predictons[0:10])
+# print("actual: ", actual[0:10])
+# print("predictons: ", predictons[0:10])
 
 
 # Calculating zero-one loss
