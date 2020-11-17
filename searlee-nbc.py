@@ -15,7 +15,7 @@ def nbc(train_data):
     zeroProb = len(zero_data)/len(train_data)
     oneProb = len(one_data)/len(train_data)
     priorProbs = [zeroProb, oneProb]
-    print("Prior Probabilities: ",zeroProb, oneProb)
+#     print("Prior Probabilities: ",zeroProb, oneProb)
 
     
     # Conditional Prob Calc
@@ -79,6 +79,7 @@ def predict(pProb, cProb, x):
     features = ['Pclass','Sex','Age','Fare','Embarked','relatives','IsAlone']
     zeroProb = pProb[0] # Start with prior prob
     oneProb = pProb[1]
+    print(pProb)
     for i in range(len(features)):
 #         print(features[i])
 #         print(cProb[features[i]])
