@@ -5,7 +5,6 @@ import os
 
 # 1. Split data into 2 dataframes by survived 1/0
 # 2. Find mean/std dev of each column for both DFs 
-# 3. Calculate the Gaussian PDF for 
 
 def nbc(train_data):
     # Splitting the data based on survived being 0 or 1
@@ -103,8 +102,8 @@ def predict(pProb, cProb, x):
     
 #     zeroProb = pProb[0]*cProb['Pclass'][x[0]][0]*cProb['Sex'][x[1]][0]*cProb['Age'][x[2]][0]*cProb['Fare'][x[3]][0]*cProb['Embarked'][x[4]][0]*cProb['relatives'][x[5]][0]*cProb['IsAlone'][x[6]][0]
 #     oneProb = pProb[1]*cProb['Pclass'][x[0]][1]*cProb['Sex'][x[1]][1]*cProb['Age'][x[2]][1]*cProb['Fare'][x[3]][1]*cProb['Embarked'][x[4]][1]*cProb['relatives'][x[5]][1]*cProb['IsAlone'][x[6]][1]
-#     print(zeroProb,oneProb)
-#     print()
+    print(zeroProb,oneProb)
+    print()
     if oneProb>zeroProb:
 #         print("one")
         return 1
@@ -180,7 +179,7 @@ for i in range(len(test_data)):
     actual = test_data['survived']
     
     predictons.append(predict(pProb, cProb, list(test_data.iloc[i,:-1]))) # Predict 1 row from the test data
-    print(predict(pProb, cProb, list(test_data.iloc[i,:-1])))
+#     print(predict(pProb, cProb, list(test_data.iloc[i,:-1])))
 outcome = sum(1 for i in actual+predictons if eval_cond(i))
 # print("accurate predictions: ", outcome)
 # print("out of: ", len(test_data))
