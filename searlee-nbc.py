@@ -74,17 +74,20 @@ def predict(pProb, cProb, x):
     # We want to find a probability for both 0 and 1 outcomes for survived
     # Thus, we want to multiply our prior probability, by the conditional probability of every single 
     # feature given for a specific row x.
-    #==================================
-    # WHy are we getting key errors when indexing 0s on the condi prob for a feature? Is it grabbing the dict instead?
-    #==================================
+
     
     # We need to consider prediction values outside of the ones we explicitly defined in nbc
     features = ['Pclass','Sex','Age','Fare','Embarked','relatives','IsAlone']
     zeroProb = pProb[0] # Start with prior prob
     oneProb = pProb[1]
     for i in range(len(features)):
+#         print(features[i])
+#         print(cProb[features[i]])
+#         print(x[i])
+#         print(cProb[features[i]][x[i]][0])
         try: # If it's in the set, continue as normal
-            zeroProb = zeroProb * cProb[features[i]][i][0]
+            zeroProb = zeroProb * cProb[features[i]][x[i]][0]
+#             print(cProb[features[i]][x[i]][0])
         except: # If not, multiply instead by the general value given for 0
             zeroProb = zeroProb * (1/(sum(train_data['survived']==0)+len(features)))
             
@@ -92,21 +95,25 @@ def predict(pProb, cProb, x):
         
     for i in range(len(features)):
         try: # If it's in the set, continue as normal
-            oneProb = oneProb * cProb[features[i]][i][0]
+            oneProb = oneProb * cProb[features[i]][x[i]][1]
+#             print(cProb[features[i]][x[i]][1])
         except: # If not, multiply instead by the general value given for 1
             oneProb = oneProb * (1/(sum(train_data['survived']==1)+len(features)))
     
     
 #     zeroProb = pProb[0]*cProb['Pclass'][x[0]][0]*cProb['Sex'][x[1]][0]*cProb['Age'][x[2]][0]*cProb['Fare'][x[3]][0]*cProb['Embarked'][x[4]][0]*cProb['relatives'][x[5]][0]*cProb['IsAlone'][x[6]][0]
 #     oneProb = pProb[1]*cProb['Pclass'][x[0]][1]*cProb['Sex'][x[1]][1]*cProb['Age'][x[2]][1]*cProb['Fare'][x[3]][1]*cProb['Embarked'][x[4]][1]*cProb['relatives'][x[5]][1]*cProb['IsAlone'][x[6]][1]
-    
+#     print(zeroProb,oneProb)
+#     print()
     if oneProb>zeroProb:
+#         print("one")
         return 1
     else:
+#         print("zero")
         return 0
     
 def eval_cond(i): # Helper function for determining which predictions were accurate
-    return (i == 1)
+    return (i != 1)
     
     
     
@@ -120,23 +127,23 @@ def eval_cond(i): # Helper function for determining which predictions were accur
 
 import argparse
 
-parser = argparse.ArgumentParser(description='CS373 Homework3 Naive Bayes')
-parser.add_argument('trainData')
-parser.add_argument('trainLabel')
-parser.add_argument('testData')
-parser.add_argument('testLabel')
-args = parser.parse_args()
+# parser = argparse.ArgumentParser(description='CS373 Homework3 Naive Bayes')
+# parser.add_argument('trainData')
+# parser.add_argument('trainLabel')
+# parser.add_argument('testData')
+# parser.add_argument('testLabel')
+# args = parser.parse_args()
 
-data_file = args.trainData
-data_label = args.trainLabel
-test_file = args.testData
-test_label = args.testLabel
+# data_file = args.trainData
+# data_label = args.trainLabel
+# test_file = args.testData
+# test_label = args.testLabel
 
 
-# data_file = "titanic-train.data"
-# data_label = "titanic-train.label"
-# test_file = "titanic-test.data"
-# test_label = "titanic-test.label"
+data_file = "titanic-train.data"
+data_label = "titanic-train.label"
+test_file = "titanic-test.data"
+test_label = "titanic-test.label"
 
 
 train_data = pd.read_csv(data_file, delimiter=',', index_col=None, engine='python')
@@ -168,11 +175,12 @@ pProb, cProb = nbc(train_data)
 
 # Evaluating test data
 # print(test_data.head(50))
+predictons = []
 for i in range(len(test_data)):
     actual = test_data['survived']
-    predictons = []
+    
     predictons.append(predict(pProb, cProb, list(test_data.iloc[i,:-1]))) # Predict 1 row from the test data
-    print(predict(pProb, cProb, list(test_data.iloc[i,:-1])))
+#     print(predict(pProb, cProb, list(test_data.iloc[i,:-1])))
 outcome = sum(1 for i in actual+predictons if eval_cond(i))
 # print("accurate predictions: ", outcome)
 # print("out of: ", len(test_data))
@@ -180,8 +188,8 @@ outcome = sum(1 for i in actual+predictons if eval_cond(i))
 
 
 # print(test_data.head())
-print("actual: ", actual[0:10])
-print("predictons: ", predictons[0:10])
+# print("actual: ", actual[0:10])
+# print("predictons: ", predictons[0:10])
 
 
 # Calculating zero-one loss
@@ -192,7 +200,7 @@ zeroOneLoss = 1-(outcome/len(test_data))
 
 
 # Calculating squared Loss
-squaredLoss = np.mean((1-actual-predictons)*(1-actual-predictons))
+squaredLoss = np.mean((actual-predictons)*(actual-predictons))
 testAcc = outcome/len(test_data)
 
 print("ZERO-ONE LOSS="+str(zeroOneLoss))
