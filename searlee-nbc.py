@@ -79,7 +79,7 @@ def predict(pProb, cProb, x):
     features = ['Pclass','Sex','Age','Fare','Embarked','relatives','IsAlone']
     zeroProb = pProb[0] # Start with prior prob
     oneProb = pProb[1]
-    print(pProb)
+    print("pProb", pProb)
     for i in range(len(features)):
 #         print(features[i])
 #         print(cProb[features[i]])
