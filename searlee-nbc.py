@@ -15,7 +15,7 @@ def nbc(train_data):
     zeroProb = len(zero_data)/len(train_data)
     oneProb = len(one_data)/len(train_data)
     priorProbs = [zeroProb, oneProb]
-#     print("Prior Probabilities: ",zeroProb, oneProb)
+    print("Prior Probabilities: ",zeroProb, oneProb)
 
     
     # Conditional Prob Calc
@@ -86,7 +86,7 @@ def predict(pProb, cProb, x):
 #         print(cProb[features[i]][x[i]][0])
         try: # If it's in the set, continue as normal
             zeroProb = zeroProb * cProb[features[i]][x[i]][0]
-#             print(cProb[features[i]][x[i]][0])
+            print(cProb[features[i]][x[i]][0])
         except: # If not, multiply instead by the general value given for 0
             zeroProb = zeroProb * (1/(sum(train_data['survived']==0)+len(features)))
             
@@ -95,7 +95,7 @@ def predict(pProb, cProb, x):
     for i in range(len(features)):
         try: # If it's in the set, continue as normal
             oneProb = oneProb * cProb[features[i]][x[i]][1]
-#             print(cProb[features[i]][x[i]][1])
+            print(cProb[features[i]][x[i]][1])
         except: # If not, multiply instead by the general value given for 1
             oneProb = oneProb * (1/(sum(train_data['survived']==1)+len(features)))
     
