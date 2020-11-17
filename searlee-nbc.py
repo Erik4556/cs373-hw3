@@ -172,13 +172,14 @@ for i in range(len(test_data)):
     actual = test_data['survived']
     predictons = []
     predictons.append(predict(pProb, cProb, list(test_data.iloc[i,:-1]))) # Predict 1 row from the test data
+    print(predict(pProb, cProb, list(test_data.iloc[i,:-1])))
 outcome = sum(1 for i in actual+predictons if eval_cond(i))
 # print("accurate predictions: ", outcome)
 # print("out of: ", len(test_data))
 # print()
 
 
-print(test_data.head())
+# print(test_data.head())
 print("actual: ", actual[0:10])
 print("predictons: ", predictons[0:10])
 
