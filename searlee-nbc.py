@@ -17,6 +17,8 @@ def nbc(train_data):
     oneProb = len(one_data)/len(train_data)
     priorProbs = [zeroProb, oneProb]
     print(len(zero_data),len(one_data),len(train_data))
+    print(len(zero_data)/len(train_data))
+    print(len(one_data)/len(train_data))
     print("Prior Probabilities: ",zeroProb, oneProb)
 
     
