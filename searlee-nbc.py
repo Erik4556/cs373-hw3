@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from statistics import mean
 import sys
 import os
 
