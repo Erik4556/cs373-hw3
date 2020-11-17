@@ -188,8 +188,8 @@ outcome = sum(1 for i in actual+predictons if eval_cond(i))
 
 
 # print(test_data.head())
-# print("actual: ", actual[0:10])
-# print("predictons: ", predictons[0:10])
+print("actual: ", actual[0:10])
+print("predictons: ", predictons[0:10])
 
 
 # Calculating zero-one loss
