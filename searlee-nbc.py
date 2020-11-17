@@ -126,6 +126,7 @@ parser.add_argument('trainLabel')
 parser.add_argument('testData')
 parser.add_argument('testLabel')
 args = parser.parse_args()
+
 data_file = args.trainData
 data_label = args.trainLabel
 test_file = args.testData
@@ -137,15 +138,14 @@ test_label = args.testLabel
 # test_file = "titanic-test.data"
 # test_label = "titanic-test.label"
 
-trainFolder = ''
-testFolder = ''
-train_data = pd.read_csv(trainFolder + data_file, delimiter=',', index_col=None, engine='python')
-train_label = pd.read_csv(trainFolder + data_label, delimiter=',', index_col=None, engine='python')
+
+train_data = pd.read_csv(data_file, delimiter=',', index_col=None, engine='python')
+train_label = pd.read_csv(data_label, delimiter=',', index_col=None, engine='python')
 train_data["survived"] = train_label["survived"] # Adding the survived column onto the dataframe
 train_data = train_data.fillna(train_data.mode().iloc[0]) # Replace NAs with the most frequent value in the column
 
-test_data = pd.read_csv(testFolder + test_file, delimiter=',', index_col=None, engine='python')
-test_label = pd.read_csv(testFolder + test_label, delimiter=',', index_col=None, engine='python')
+test_data = pd.read_csv(test_file, delimiter=',', index_col=None, engine='python')
+test_label = pd.read_csv(test_label, delimiter=',', index_col=None, engine='python')
 test_data["survived"] = test_label["survived"] # Adding the survived column onto the dataframe
 test_data = test_data.fillna(test_data.mode().iloc[0]) # Replace NAs with the most frequent value in the column
 
