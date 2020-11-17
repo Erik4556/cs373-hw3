@@ -121,10 +121,10 @@ def eval_cond(i): # Helper function for determining which predictions were accur
 import argparse
 
 parser = argparse.ArgumentParser(description='CS373 Homework3 Naive Bayes')
-parser.add_argument('--trainData')
-parser.add_argument('--trainLabel')
-parser.add_argument('--testData')
-parser.add_argument('--testLabel')
+parser.add_argument('trainData')
+parser.add_argument('trainLabel')
+parser.add_argument('testData')
+parser.add_argument('testLabel')
 args = parser.parse_args()
 data_file = args.trainData
 data_label = args.trainLabel
@@ -162,8 +162,8 @@ pProb, cProb = nbc(train_data)
 
 
 
-test = [2.0, 1.0, 34.0, 32.0, 0.0, 2.0, 0.0]
-predict(pProb, cProb, test)
+# test = [2.0, 1.0, 34.0, 32.0, 0.0, 2.0, 0.0]
+# predict(pProb, cProb, test)
 
 
 # Evaluating test data
