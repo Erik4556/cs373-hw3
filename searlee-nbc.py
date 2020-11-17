@@ -11,6 +11,7 @@ def nbc(train_data):
     zero_data = train_data[train_data['survived'] == 0]
     one_data = train_data[train_data['survived'] == 1]
 
+    print(train_data.head())
     # Prior Prob Calc
     zeroProb = len(zero_data)/len(train_data)
     oneProb = len(one_data)/len(train_data)
@@ -79,7 +80,7 @@ def predict(pProb, cProb, x):
     features = ['Pclass','Sex','Age','Fare','Embarked','relatives','IsAlone']
     zeroProb = pProb[0] # Start with prior prob
     oneProb = pProb[1]
-    print("pProb", pProb)
+#     print("pProb", pProb)
     for i in range(len(features)):
 #         print(features[i])
 #         print(cProb[features[i]])
@@ -87,7 +88,7 @@ def predict(pProb, cProb, x):
 #         print(cProb[features[i]][x[i]][0])
         try: # If it's in the set, continue as normal
             zeroProb = zeroProb * cProb[features[i]][x[i]][0]
-            print(cProb[features[i]][x[i]][0])
+#             print(cProb[features[i]][x[i]][0])
         except: # If not, multiply instead by the general value given for 0
             zeroProb = zeroProb * (1/(sum(train_data['survived']==0)+len(features)))
             
@@ -96,15 +97,15 @@ def predict(pProb, cProb, x):
     for i in range(len(features)):
         try: # If it's in the set, continue as normal
             oneProb = oneProb * cProb[features[i]][x[i]][1]
-            print(cProb[features[i]][x[i]][1])
+#             print(cProb[features[i]][x[i]][1])
         except: # If not, multiply instead by the general value given for 1
             oneProb = oneProb * (1/(sum(train_data['survived']==1)+len(features)))
     
     
 #     zeroProb = pProb[0]*cProb['Pclass'][x[0]][0]*cProb['Sex'][x[1]][0]*cProb['Age'][x[2]][0]*cProb['Fare'][x[3]][0]*cProb['Embarked'][x[4]][0]*cProb['relatives'][x[5]][0]*cProb['IsAlone'][x[6]][0]
 #     oneProb = pProb[1]*cProb['Pclass'][x[0]][1]*cProb['Sex'][x[1]][1]*cProb['Age'][x[2]][1]*cProb['Fare'][x[3]][1]*cProb['Embarked'][x[4]][1]*cProb['relatives'][x[5]][1]*cProb['IsAlone'][x[6]][1]
-    print(zeroProb,oneProb)
-    print()
+#     print(zeroProb,oneProb)
+#     print()
     if oneProb>zeroProb:
 #         print("one")
         return 1
