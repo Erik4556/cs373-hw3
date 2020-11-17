@@ -127,23 +127,23 @@ def eval_cond(i): # Helper function for determining which predictions were accur
 
 import argparse
 
-# parser = argparse.ArgumentParser(description='CS373 Homework3 Naive Bayes')
-# parser.add_argument('trainData')
-# parser.add_argument('trainLabel')
-# parser.add_argument('testData')
-# parser.add_argument('testLabel')
-# args = parser.parse_args()
+parser = argparse.ArgumentParser(description='CS373 Homework3 Naive Bayes')
+parser.add_argument('trainData')
+parser.add_argument('trainLabel')
+parser.add_argument('testData')
+parser.add_argument('testLabel')
+args = parser.parse_args()
 
-# data_file = args.trainData
-# data_label = args.trainLabel
-# test_file = args.testData
-# test_label = args.testLabel
+data_file = args.trainData
+data_label = args.trainLabel
+test_file = args.testData
+test_label = args.testLabel
 
 
-data_file = "titanic-train.data"
-data_label = "titanic-train.label"
-test_file = "titanic-test.data"
-test_label = "titanic-test.label"
+# data_file = "titanic-train.data"
+# data_label = "titanic-train.label"
+# test_file = "titanic-test.data"
+# test_label = "titanic-test.label"
 
 
 train_data = pd.read_csv(data_file, delimiter=',', index_col=None, engine='python')
